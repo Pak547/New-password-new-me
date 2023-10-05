@@ -93,6 +93,10 @@ button[disabled] {
   background: #c0c7cf;
 }
 
+button:hover {
+  filter: brightness(75%);
+  transition: 0.3s;
+}
 .float-right {
   float: right;
 }

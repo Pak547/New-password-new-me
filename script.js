@@ -95,7 +95,7 @@ function determineChar(){
   }
   if(charOptions === 0){
     validInput = false;
-    alert("Please limit to 1,2,3,4");
+    alert("Please limit to 1, 2, 3, 4");
   }
 };
 
@@ -121,7 +121,7 @@ function generatePassword(){
     allChar += numsChar;
   }
   for (var i=0; i< passwordLength;i++){
-    output += allChar[Math.floor(Math.random()* (allChar.length-1))]
+    output += allChar[Math.floor(Math.random()* (allChar.length))]
   } 
   if (validInput){
     return output;
