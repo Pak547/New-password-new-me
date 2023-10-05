@@ -24,11 +24,12 @@ THEN the password is either displayed in an alert or written to the page
 
 var generateBtn = document.querySelector("#generate");
 
-var upperChar = "abcdefghijklmnopqrstuvwxyz";
-var lowerChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var lowerChar = "abcdefghijklmnopqrstuvwxyz";
+var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var specChar = "!@#$%^&*()_-+={}[];:'`~<,>.?/|";
 var numsChar = "0123456789";
 var passwordLength = "";
+var password = "";
 var validInput = true;
 // by default it is false unless change unless it meets requirements
 
@@ -54,25 +55,82 @@ function determineLength(){
   } else if (isNaN(passwordLength)){
     alert("You have to put a number!");
     validInput = false;
+    return determineLength;
 
   } else {
     alert("Next choice!");
     validInput = true;
+    determineChar();
   } 
-}
+  
+};
 
 // WHEN asked for character types to include in the password
 // THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
 
-function determineCharType(){
-  prompt("Input corresponding numbers to include that character type; Lowercase(1), Uppercase(2), Numeric(3), Special(4)")
+function determineChar(){
+  lowerCharCheck = false;
+  upperCharCheck = false;
+  specCharCheck = false;
+  numsCharCheck = false;
+  var charOptions = 0;
+  var charSet = "";
+  charSet = prompt("Input corresponding numbers to include that character type; Lowercase(1), Uppercase(2), Numeric(3), Special(4)");
 
-  if(prompt === 1){}
-}
+  if(charSet.indexOf("1") != -1 ) {
+    lowerCharCheck = true;
+    charOptions++;
+  }
+  if(charSet.indexOf("2") != -1) {
+    upperCharCheck = true;
+    charOptions++;
+  }
+  if(charSet.indexOf("3") != -1) {
+    numsCharCheck = true;
+    charOptions++;
+  }
+  if(charSet.indexOf("4") != -1){
+    specCharCheck = true;
+    charOptions++;
+  }
+  if(charOptions === 0){
+    validInput = false;
+    alert("Please limit to 1,2,3,4");
+  }
+};
 
 
 
+//WHEN I answer each prompt
+//THEN my input should be validated and at least one character type should be selected
+function generatePassword(){
+  validInput = true;
+  determineLength();
+  var allChar = "";
+  var output = "";
+  if (lowerCharCheck){
+    allChar += lowerChar;
+  }
+  if (upperCharCheck){
+    allChar += upperChar;
+  }
+  if (specCharCheck){
+    allChar += specChar;
+  }
+  if (numsCharCheck){
+    allChar += numsChar;
+  }
+  for (var i=0; i< passwordLength;i++){
+    output += allChar[Math.floor(Math.random()* (allChar.length-1))]
+  } 
+  if (validInput){
+    return output;
+  }
+  else {
+    return false;
+  }
 
+};
 
 
 
@@ -85,7 +143,7 @@ function writePassword() {
 
   passwordText.value = password;
 
-}
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
